@@ -1,6 +1,9 @@
 ---
-title: API
-position: 140
+title: Previews API
+weight: 140
+menu:
+  docs:
+    parent: reference
 ---
 
 # Previews

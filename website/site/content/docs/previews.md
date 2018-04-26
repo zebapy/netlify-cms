@@ -1,12 +1,15 @@
 ---
-title: Custom Previews
-position: 50
+title: In-Editor Previews
+weight: 50
+menu:
+  docs:
+    parent: start
 ---
 
-# Customizing the Preview Pane
+# In-Editor Previews
 
-The preview pane displays an HTML preview of the content you're editing, and can be customized to
-display content identical to your production site using templates and CSS.
+Netlify CMS will display a preview of your content right inside the editor, updated in realtime, and
+optionally customized to match your site.
 
 ## Preview Templates
 

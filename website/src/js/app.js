@@ -15,6 +15,16 @@ if ($('.landing.page, .community.page').length) {
   };
 }
 
+// Expand Docs Nav
+
+const docsNav = document.getElementById('docs-nav');
+docsNav.addEventListener('click', e => {
+  if (!e.target.classList.contains('docs-nav-section-button')) return;
+  const parent = e.target.parentElement;
+  Array.from(docsNav.children).forEach(el => el !== parent && el.classList.remove('section-active'));
+  parent.classList.toggle('section-active');
+});
+
 // Auto Indexing Docs Nav
 
 var indexDocsSubsections = function() {

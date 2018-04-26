@@ -1,6 +1,9 @@
 ---
-title: Contributing
+title: Contributor Guide
 position: 100
+menu:
+  docs:
+    parent: contributing
 ---
 
 # Welcome, contributors!
