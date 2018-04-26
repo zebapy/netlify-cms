@@ -27,6 +27,8 @@
 
     @media screen and (min-width: $tablet) {
       display: block;
+      height: 100%;
+      overflow-y: auto;
     }
 
     &.mobile {
@@ -89,47 +91,17 @@
   }
 
   .docs-nav-section {
-    margin-bottom: 20px;
+    margin-bottom: 30px;
   }
 
   .docs-nav-section-list {
-    display: none;
-    margin: 0 0 0 10px;
+    margin: 0;
   }
 
-  .docs-nav-section-button {
-    position: relative;
+  .docs-nav-section-title {
     font-size: 20px;
     font-weight: bold;
     margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    border: 0;
-    background: none;
-    padding: 0;
-    cursor: pointer;
-
-    &:after {
-      content: '';
-      display: inline-block;
-      border-left: 5px solid transparent;
-      border-right: 5px solid transparent;
-      margin-left: 10px;
-      border-top: 7px solid currentColor;
-      margin-top: 4px;
-    }
-  }
-
-  .docs-nav-section.section-active {
-    & .docs-nav-section-list {
-      display: block;
-    }
-
-    & .docs-nav-section-button:after {
-      border-bottom: 7px solid currentColor;
-      border-top: 0;
-      margin-top: 0;
-    }
   }
 
   .nav-subsections {

@@ -1,17 +1,15 @@
 {{ partial "header" . }}
 {{ $activePage := .Params.position }}
 
-<div class="docs detail page">
+<div class="docs page">
   <div class="container">
     <aside id="sidebar" class="sidebar">
       <nav id="docs-nav" class="docs-nav" id="docs-nav">
         {{ $currentPage := . }}
         {{ range $index, $element := .Site.Menus.docs }}
           {{ if .HasChildren }}
-            <div class="docs-nav-section {{ if $currentPage.HasMenuCurrent "docs" . }}section-active{{ end }}">
-              <button class="docs-nav-section-button">
-                {{ .Title }}
-              </button>
+            <div class="docs-nav-section">
+              <div class="docs-nav-section-title">{{ .Title }}</div>
               <ul class="docs-nav-section-list">
                 {{ range .Children }}
                   <a href="{{ .URL }}" class="nav-link {{ if $currentPage.IsMenuCurrent "docs" . }}active{{ end }}">{{ .Title }}</a>
@@ -24,11 +22,13 @@
       <div class="mobile docs-nav">
         <select class="btn-primary" id="mobile-docs-nav">
           <option value="" selected="selected">Select A Topic</option>
-          {{ $subjects := where .Site.Pages "Section" "docs" }}
-          {{ range sort $subjects "Params.position" }}
-            {{- if ne .Type "widget" -}}
-            <option value="{{ .Permalink }}" class="nav-link {{ if eq .Params.position $activePage }}active{{ end }}">{{ .Title }}</option>
-            {{- end -}}
+          {{ range $index, $element := .Site.Menus.docs }}
+            {{ if .HasChildren }}
+              <optgroup label="{{ .Title }}"/>
+              {{ range .Children }}
+                <option value="{{ .URL }}" class="nav-link {{ if $currentPage.IsMenuCurrent "docs" . }}active{{ end }}">{{ .Title }}</option>
+              {{ end }}
+            {{ end }}
           {{ end }}
         </select>
       </div>
