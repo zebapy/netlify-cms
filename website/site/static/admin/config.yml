@@ -1,6 +1,7 @@
 backend:
   name: github
   repo: netlify/netlify-cms
+  branch: api-docs-previews
 
 publish_mode: editorial_workflow
 
@@ -15,6 +16,26 @@ collections: # A list of collections the CMS should be able to edit
     fields: # The fields each document in this collection have
       - {label: "Title", name: "title", widget: "string", tagname: "h1"}
       - {label: "Position", name: "position", widget: "number"}
+      - label: Section
+        name: menu
+        widget: object
+        fields:
+          - label: Section
+            name: docs
+            widget: object
+            fields:
+              - label: Section
+                name: parent
+                widget: select
+                options:
+                  - label: Quick Start
+                    value: start
+                  - label: Guides
+                    value: guides
+                  - label: Reference
+                    value: reference
+                  - label: Contributing
+                    value: contributing
       - {label: "Body", name: "body", widget: "markdown"}
   - name: updates
     label: Updates
