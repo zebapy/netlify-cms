@@ -4,6 +4,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import Waypoint from 'react-waypoint';
 import { Map } from 'immutable';
 import { selectFields, selectInferedField } from 'Reducers/collections';
+import { ThemeEntryListing } from 'Theme';
 import EntryCard from './EntryCard';
 
 export default class EntryListing extends React.Component {
@@ -56,16 +57,14 @@ export default class EntryListing extends React.Component {
     const { collections, entries, publicFolder } = this.props;
 
     return (
-      <div>
-        <div className="nc-entryListing-cardsGrid">
-          {
-            Map.isMap(collections)
-              ? this.renderCardsForSingleCollection()
-              : this.renderCardsForMultipleCollections()
-          }
-          <Waypoint onEnter={this.handleLoadMore} />
-        </div>
-      </div>
+      <ThemeEntryListing>
+        {
+          Map.isMap(collections)
+            ? this.renderCardsForSingleCollection()
+            : this.renderCardsForMultipleCollections()
+        }
+        <Waypoint onEnter={this.handleLoadMore} />
+      </ThemeEntryListing>
     );
   }
 }

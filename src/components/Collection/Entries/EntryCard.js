@@ -1,14 +1,9 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-import ImmutablePropTypes from 'react-immutable-proptypes';
 import { Link } from 'react-router-dom';
-import c from 'classnames';
-import history from 'Routing/history';
+import { getTheme } from 'Lib/registry';
 import { resolvePath } from 'Lib/pathHelper';
 import { VIEW_STYLE_LIST, VIEW_STYLE_GRID } from 'Constants/collectionViews';
-
-const CollectionLabel = ({ label }) =>
-  <h2 className="nc-entryListing-listCard-collection-label">{label}</h2>;
+import { ThemeEntryCardList, ThemeEntryCardGrid } from 'Theme';
 
 const EntryCard = ({
   collection,
@@ -29,29 +24,24 @@ const EntryCard = ({
 
   if (viewStyle === VIEW_STYLE_LIST) {
     return (
-      <Link to={path} className="nc-entryListing-listCard">
-        { collectionLabel ? <CollectionLabel label={collectionLabel}/> : null }
-        <h2 className="nc-entryListing-listCard-title">{ title }</h2>
-      </Link>
+      <ThemeEntryCardList
+        Link={Link}
+        path={path}
+        collectionLabel={collectionLabel}
+        title={title}
+      />
     );
   }
 
   if (viewStyle === VIEW_STYLE_GRID) {
     return (
-      <Link to={path} className="nc-entryListing-gridCard">
-        <div className={c('nc-entryListing-cardBody', { 'nc-entryListing-cardBody-full': !image })}>
-          { collectionLabel ? <CollectionLabel label={collectionLabel}/> : null }
-          <h2 className="nc-entryListing-cardHeading">{title}</h2>
-        </div>
-        {
-          image
-            ? <div
-                className="nc-entryListing-cardImage"
-                style={{ backgroundImage: `url(${ image })` }}
-              />
-            : null
-        }
-      </Link>
+      <ThemeEntryCardGrid
+        Link={Link}
+        path={path}
+        image={image}
+        collectionLabel={collectionLabel}
+        title={title}
+      />
     );
   }
 }

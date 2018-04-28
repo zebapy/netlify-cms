@@ -8,6 +8,7 @@ import configureStore from 'Redux/configureStore';
 import { mergeConfig } from 'Actions/config';
 import { setStore } from 'ValueObjects/AssetProxy';
 import { ErrorBoundary } from 'UI'
+import 'Theme';
 import App from 'App/App';
 import 'EditorWidgets';
 import 'MarkdownPlugins';

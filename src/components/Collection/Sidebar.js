@@ -4,7 +4,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import { NavLink } from 'react-router-dom';
 import { searchCollections } from 'Actions/collections';
 import { getCollectionUrl } from 'Lib/urlHelper';
-import { Icon } from 'UI';
+import { ThemeSidebar, ThemeSidebarLink, ThemeSidebarSearchInput } from 'Theme';
 
 export default class Collection extends React.Component {
 
@@ -14,40 +14,26 @@ export default class Collection extends React.Component {
 
   state = { query: this.props.searchTerm || '' };
 
-  renderLink = collection => {
-    const collectionName = collection.get('name');
-    return (
-      <NavLink
-        key={collectionName}
-        to={`/collections/${collectionName}`}
-        className="nc-collectionPage-sidebarLink"
-        activeClassName="nc-collectionPage-sidebarLink-active"
-      >
-        <Icon type="write"/>
-        {collection.get('label')}
-      </NavLink>
-    );
-  };
-
-
   render() {
     const { collections } = this.props;
     const { query } = this.state;
 
     return (
-        <div className="nc-collectionPage-sidebar">
-          <h1 className="nc-collectionPage-sidebarHeading">Collections</h1>
-          <div className="nc-collectionPage-sidebarSearch">
-            <Icon type="search" size="small"/>
-            <input
-              onChange={e => this.setState({ query: e.target.value })}
-              onKeyDown={e => e.key === 'Enter' && searchCollections(query)}
-              placeholder="Search all"
-              value={query}
-            />
-          </div>
-          {collections.toList().map(this.renderLink)}
-        </div>
+      <ThemeSidebar>
+        <ThemeSidebarSearchInput
+          onChange={e => this.setState({ query: e.target.value })}
+          onKeyDown={e => e.key === 'Enter' && searchCollections(query)}
+          value={query}
+        />
+        {collections.toList().map(collection =>
+          <ThemeSidebarLink
+            key={collection.get('name')}
+            path={`/collections/${collection.get('name')}`}
+            label={collection.get('label')}
+            NavLink={NavLink}
+          />
+        )}
+      </ThemeSidebar>
     );
   }
 }

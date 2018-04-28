@@ -11,6 +11,7 @@ const registry = {
   widgets: {},
   editorComponents: Map(),
   widgetValueSerializers: {},
+  theme: {},
 };
 
 export default {
@@ -27,6 +28,8 @@ export default {
   getWidgetValueSerializer,
   registerBackend,
   getBackend,
+  registerTheme,
+  getTheme,
 };
 
 
@@ -113,3 +116,17 @@ export function getBackend(name) {
   return registry.backends[name];
 }
 
+/**
+ * Theme Components
+ */
+export function registerTheme(name, component) {
+  if (!name || !component) {
+    console.error("Theme parameters invalid. example: CMS.registerTheme('entry_card_list', Component)");
+  } else {
+    registry.theme[name] = component;
+  }
+}
+
+export function getTheme(name) {
+  return registry.theme[name];
+}

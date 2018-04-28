@@ -28,6 +28,7 @@
         "Reducers": "./src/reducers/",
         "Redux": "./src/redux/",
         "Routing": "./src/routing/",
+        "Theme": "./src/theme/",
         "ValueObjects": "./src/valueObjects/",
       }
     }],
