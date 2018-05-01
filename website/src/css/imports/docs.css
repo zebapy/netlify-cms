@@ -74,7 +74,8 @@
       font-weight: $regular;
       font-size: $tiny;
       color: $grey;
-      line-height: 32px;
+      line-height: 1.3;
+      margin: 10px 0;
       text-decoration: none;
       text-transform: capitalize;
       transition: color .2s ease;
