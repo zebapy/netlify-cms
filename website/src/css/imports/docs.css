@@ -87,7 +87,7 @@
     }
   }
 
-  .nav-subsections {
+  .nav-subsections ul {
     margin: $tiny 0;
     padding: 0 0 0 $tiny;
     border-left: 2px solid $lightestGrey;
@@ -98,7 +98,12 @@
       padding: 0;
     }
 
-    .subnav-link {
+    /* HACK: should remove the element in markup instead */
+    ul {
+      display: none;
+    }
+
+    a {
       font-size: 14px;
     }
   }
