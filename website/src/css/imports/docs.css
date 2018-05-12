@@ -153,6 +153,7 @@
     }
 
     code {
+      color: inherit;
       background: $lightestGrey;
       border-radius: 2px;
       padding: 2px 6px;
