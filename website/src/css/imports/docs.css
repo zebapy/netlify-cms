@@ -12,7 +12,7 @@
 .docs.page {
   padding: 69px $tiny $xl;
   text-align: left;
-  @media screen and (min-width: $mobile) {
+  @media screen and (min-width: $tablet) {
     padding: 157px $medium $xl;
   }
 
