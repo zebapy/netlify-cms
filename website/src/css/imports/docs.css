@@ -91,10 +91,7 @@
     }
   }
 
-<<<<<<< HEAD
   .nav-subsections ul {
-=======
-  .docs-nav-section {
     margin-bottom: 30px;
   }
 
@@ -109,7 +106,6 @@
   }
 
   .nav-subsections {
->>>>>>> master
     margin: $tiny 0;
     padding: 0 0 0 $tiny;
     border-left: 2px solid $lightestGrey;
