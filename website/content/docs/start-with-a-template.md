@@ -1,6 +1,9 @@
 ---
 title: Start with a Template
-position: 10
+weight: 10
+menu:
+  docs:
+    parent: start
 ---
 
 Netlify CMS can be [added to an existing site](https://www.netlifycms.org/docs/add-to-your-site), but the quickest way to get started is with a template. Our featured templates below deploy to Netlify, giving you a fully working CMS-enabled site with just a few clicks.

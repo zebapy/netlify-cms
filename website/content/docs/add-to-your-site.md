@@ -1,7 +1,15 @@
 ---
 title: Add to Your Site
-position: 20
+weight: 20
+menu:
+  docs:
+    parent: start
 ---
+<<<<<<< HEAD:website/content/docs/add-to-your-site.md
+=======
+
+# Add Netlify CMS to Your Site
+>>>>>>> master:website/site/content/docs/add-to-your-site.md
 
 Netlify CMS is adaptable to a wide variety of projects. The only inflexible requirement is that your site content must be written in markdown, JSON, YAML, or TOML files, stored in a repo on [GitHub](https://github.com/). (If you're partial to another Git hosting service, check out the PRs in progress for [GitLab](https://github.com/netlify/netlify-cms/pull/517) and [Bitbucket](https://github.com/netlify/netlify-cms/pull/525) support.)
 
@@ -14,7 +22,7 @@ All Netlify CMS files are contained in a static `admin` folder, stored at the ro
 | These generators ... | store static files in |
 | -------------------- | --------------------- |
 | Jekyll, GitBook      | `/` (project root)    |
-| Hugo, Gatsby         | `/static`             |
+| Hugo, Gatsby, Nuxt   | `/static`             |
 | Hexo, Middleman      | `/source`             |
 | Spike                | `/views`              |
 | Wyam                 | `/input`              |
