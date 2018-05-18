@@ -1,6 +1,7 @@
 ---
-title: Contributing
-position: 100
+title: Contributor Guide
+weight: 100
+group: contributing
 ---
 
 We're hoping that Netlify CMS will do for the [JAMstack](https://www.jamstack.org) what WordPress did for dynamic sites back in the day. We know we can't do that without building a thriving community of contributors and users, and we'd love to have you join us.
