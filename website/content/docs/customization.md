@@ -1,5 +1,5 @@
 ---
-title: Custom Previews
+title: Creating Custom Previews
 position: 50
 group: guides
 ---
