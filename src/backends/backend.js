@@ -1,4 +1,5 @@
 import { attempt, isError } from 'lodash';
+import { Map } from 'immutable';
 import { resolveFormat } from "Formats/formats";
 import { selectIntegration } from 'Reducers/integrations';
 import {
@@ -7,7 +8,8 @@ import {
   selectEntryPath,
   selectAllowNewEntries,
   selectAllowDeletion,
-  selectFolderEntryExtension
+  selectFolderEntryExtension,
+  selectIdentifier,
 } from "Reducers/collections";
 import { createEntry } from "ValueObjects/Entry";
 import { sanitizeSlug } from "Lib/urlHelper";
@@ -41,23 +43,14 @@ class LocalStorageAuthStore {
   }
 }
 
-const slugFormatter = (template = "{{slug}}", entryData, slugConfig) => {
+const slugFormatter = (collection, entryData, slugConfig) => {
+  const template = collection.get('slug') || "{{slug}}";
   const date = new Date();
 
-  const getIdentifier = (entryData) => {
-    const validIdentifierFields = ["title", "path"];
-    const identifiers = validIdentifierFields.map((field) =>
-      entryData.find((_, key) => key.toLowerCase().trim() === field)
-    );
-
-    const identifier = identifiers.find(ident => ident !== undefined);
-
-    if (identifier === undefined) {
-      throw new Error("Collection must have a field name that is a valid entry identifier");
-    }
-
-    return identifier;
-  };
+  const identifier = entryData.get(selectIdentifier(collection));
+  if (!identifier) {
+    throw new Error("Collection must have a field name that is a valid entry identifier");
+  }
 
   const slug = template.replace(/\{\{([^\}]+)\}\}/g, (_, field) => {
     switch (field) {
@@ -74,7 +67,7 @@ const slugFormatter = (template = "{{slug}}", entryData, slugConfig) => {
       case "second":
         return (`0${ date.getSeconds() }`).slice(-2);
       case "slug":
-        return getIdentifier(entryData).trim();
+        return identifier.trim();
       default:
         return entryData.get(field, "").trim();
     }
@@ -87,6 +80,32 @@ const slugFormatter = (template = "{{slug}}", entryData, slugConfig) => {
 
   return sanitizeSlug(slug, slugConfig);
 };
+
+const commitMessageTemplates = Map({
+  create: 'Create {{collection}} “{{slug}}”',
+  update: 'Update {{collection}} “{{slug}}”',
+  delete: 'Delete {{collection}} “{{slug}}”',
+  uploadMedia: 'Upload “{{path}}”',
+  deleteMedia: 'Delete “{{path}}”'
+});
+
+const commitMessageFormatter = (type, config, { slug, path, collection }) => {
+  const templates = commitMessageTemplates.merge(config.getIn(['backend', 'commit_messages'], Map()));
+  const messageTemplate = templates.get(type);
+  return messageTemplate.replace(/\{\{([^\}]+)\}\}/g, (_, variable) => {
+    switch (variable) {
+      case 'slug':
+        return slug;
+      case 'path':
+        return path;
+      case 'collection':
+        return collection.get('label');
+      default:
+        console.warn(`Ignoring unknown variable “${ variable }” in commit message template.`);
+        return '';
+    }
+  });
+}
 
 class Backend {
   constructor(implementation, backendName, authStore = null) {
@@ -248,7 +267,7 @@ class Backend {
       if (!selectAllowNewEntries(collection)) {
         throw (new Error("Not allowed to create new entries in this collection"));
       }
-      const slug = slugFormatter(collection.get("slug"), entryDraft.getIn(["entry", "data"]), config.get("slug"));
+      const slug = slugFormatter(collection, entryDraft.getIn(["entry", "data"]), config.get("slug"));
       const path = selectEntryPath(collection, slug);
       entryObj = {
         path,
@@ -265,8 +284,7 @@ class Backend {
       };
     }
 
-    const commitMessage = `${ (newEntry ? "Create " : "Update ") +
-          collection.get("label") } “${ entryObj.slug }”`;
+    const commitMessage = commitMessageFormatter(newEntry ? 'create' : 'update', config, { collection, slug: entryObj.slug, path: entryObj.path });
 
     const mode = config.get("publish_mode");
 
@@ -283,9 +301,9 @@ class Backend {
       .then(() => entryObj.slug);
   }
 
-  persistMedia(file) {
+  persistMedia(config, file) {
     const options = {
-      commitMessage: `Upload ${file.path}`,
+      commitMessage: commitMessageFormatter('uploadMedia', config, { path: file.path }),
     };
     return this.implementation.persistMedia(file, options);
   }
@@ -297,12 +315,12 @@ class Backend {
       throw (new Error("Not allowed to delete entries in this collection"));
     }
 
-    const commitMessage = `Delete ${ collection.get('label') } “${ slug }”`;
+    const commitMessage = commitMessageFormatter('delete', config, { collection, slug, path });
     return this.implementation.deleteFile(path, commitMessage);
   }
 
-  deleteMedia(path) {
-    const commitMessage = `Delete ${path}`;
+  deleteMedia(config, path) {
+    const commitMessage = commitMessageFormatter('deleteMedia', config, { path });
     return this.implementation.deleteFile(path, commitMessage);
   }
 
