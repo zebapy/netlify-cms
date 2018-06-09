@@ -190,6 +190,10 @@ header {
       text-decoration: none;
       line-height: $small;
     }
+
+    img {
+      margin-right: 4px;
+    }
   }
 
   .logo-container {
