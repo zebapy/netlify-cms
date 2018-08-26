@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { navigate } from '@reach/router';
 import { Link } from 'gatsby';
 
 class MobileNav extends Component {
