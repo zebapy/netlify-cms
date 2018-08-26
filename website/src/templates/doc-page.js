@@ -17,7 +17,7 @@ const toMenu = (menu, nav) =>
     group: nav.group.find(g => g.fieldValue === group.name),
   }));
 
-const DocPage = ({ data, location, history }) => {
+const DocPage = ({ data, location }) => {
   const { nav, page, widgets, menu } = data;
 
   const docsNav = toMenu(menu.siteMetadata.menu.docs, nav);
@@ -30,7 +30,7 @@ const DocPage = ({ data, location, history }) => {
         <div className="container">
           <aside id="sidebar" className="sidebar">
             <DocsNav items={docsNav} location={location} />
-            <MobileNav items={docsNav} history={history} />
+            <MobileNav items={docsNav} />
           </aside>
           <article className="docs-content" id="docs-content">
             <EditLink path={page.fields.path} />
