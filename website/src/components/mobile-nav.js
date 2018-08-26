@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import { navigate } from '@reach/router';
 
 class MobileNav extends Component {
   handleChange = event => {
-    this.props.history.push(event.target.value);
+    navigate(event.target.value);
   };
   render() {
     const { items } = this.props;
