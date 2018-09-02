@@ -23,6 +23,7 @@
     "gatsby-remark-autolink-headers": "next",
     "gatsby-remark-prismjs": "next",
     "gatsby-source-filesystem": "next",
+    "gatsby-source-npm-package-search": "next",
     "gatsby-transformer-json": "next",
     "gatsby-transformer-remark": "next",
     "gatsby-transformer-yaml": "next",

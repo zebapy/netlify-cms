@@ -32,6 +32,12 @@ module.exports = {
   },
   plugins: [
     {
+      resolve: 'gatsby-source-npm-package-search',
+      options: {
+        keywords: ['netlify-cms'],
+      },
+    },
+    {
       resolve: 'gatsby-source-filesystem',
       options: {
         path: `${__dirname}/content`,
