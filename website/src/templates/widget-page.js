@@ -9,7 +9,7 @@ const WidgetPage = ({ data }) => {
 
   return (
     <Layout>
-      <div className="docs page widget-page">
+      <div className="page page-widget-view">
         <Helmet>
           <title>{name}</title>
         </Helmet>

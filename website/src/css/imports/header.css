@@ -246,3 +246,9 @@ header {
     }
   }
 }
+
+header.widgets {
+  @media screen and (min-width: $tablet) {
+    position: relative;
+  }
+}

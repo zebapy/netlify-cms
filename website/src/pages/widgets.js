@@ -6,23 +6,23 @@ import Layout from '../components/layout';
 
 const WidgetGalleryPage = ({ data }) => (
   <Layout>
-    <div className="page widgets-list">
+    <div className="page widgets">
       <Helmet>
         <title>Widget Gallery</title>
         <meta name="description" content="Browse widgets available on NPM for NetlifyCMS" />
       </Helmet>
-      <div className="container">
+      <div className="">
         <h1>Widgets</h1>
-        {data.allNpmPackage.edges.map(({ node }) => (
-          <article className="widget-list-item" key={node.id}>
-            <h2>
+        <ul>
+          {data.allNpmPackage.edges.map(({ node }) => (
+            <li className="widget-list-item" key={node.id}>
               <Link to={node.slug} className="">
                 {node.title}
               </Link>
-            </h2>
-            <p>{node.description}</p>
-          </article>
-        ))}
+              <p>{node.description}</p>
+            </li>
+          ))}
+        </ul>
         {/* TODO: pagination */}
       </div>
     </div>

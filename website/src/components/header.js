@@ -41,6 +41,8 @@ class Header extends Component {
         {({ location }) => {
           const isDocs = location.pathname.indexOf('docs') !== -1;
           const isBlog = location.pathname.indexOf('blog') !== -1;
+          const isWidgets =
+            location.pathname.indexOf('widgets') !== -1 && location.pathname !== '/docs/widgets';
 
           return (
             <header
@@ -48,6 +50,7 @@ class Header extends Component {
               className={classnames({
                 docs: isDocs,
                 blog: isBlog,
+                widgets: isWidgets,
                 scrolled,
               })}
             >
