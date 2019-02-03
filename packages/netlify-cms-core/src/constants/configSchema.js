@@ -1,7 +1,6 @@
 import AJV from 'ajv';
 import ajvErrors from 'ajv-errors';
 import { formatExtensions, frontmatterFormats, extensionFormatters } from 'Formats/formats';
-import { IDENTIFIER_FIELDS } from 'Constants/fieldInference';
 
 /**
  * Config for fields in both file and folder collections.
@@ -97,7 +96,14 @@ const getConfigSchema = () => ({
           },
           format: { type: 'string', enum: Object.keys(formatExtensions) },
           extension: { type: 'string' },
-          frontmatter_delimiter: { type: 'string' },
+          frontmatter_delimiter: {
+            type: ['string', 'array'],
+            minItems: 2,
+            maxItems: 2,
+            items: {
+              type: 'string',
+            },
+          },
           fields: fieldsConfig,
         },
         required: ['name', 'label'],
@@ -118,20 +124,6 @@ const getConfigSchema = () => ({
               format: { enum: frontmatterFormats },
             },
             required: ['format'],
-          },
-          folder: {
-            errorMessage: {
-              _: 'must have a field that is a valid entry identifier',
-            },
-            properties: {
-              fields: {
-                contains: {
-                  properties: {
-                    name: { enum: [{ $data: '3/identifier_field' }, ...IDENTIFIER_FIELDS] },
-                  },
-                },
-              },
-            },
           },
         },
       },
@@ -170,7 +162,7 @@ class ConfigError extends Error {
  * the config that is passed in.
  */
 export function validateConfig(config) {
-  const ajv = new AJV({ allErrors: true, jsonPointers: true, $data: true });
+  const ajv = new AJV({ allErrors: true });
   ajvErrors(ajv);
 
   const valid = ajv.validate(getConfigSchema(), config);

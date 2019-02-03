@@ -100,7 +100,7 @@ const commitMessageFormatter = (type, config, { slug, path, collection }) => {
       case 'path':
         return path;
       case 'collection':
-        return collection.get('label');
+        return collection.get('label_singular') || collection.get('label');
       default:
         console.warn(`Ignoring unknown variable “${variable}” in commit message template.`);
         return '';
@@ -300,16 +300,17 @@ class Backend {
   }
 
   getEntry(collection, slug) {
-    return this.implementation
-      .getEntry(collection, slug, selectEntryPath(collection, slug))
-      .then(loadedEntry =>
-        this.entryWithFormat(collection, slug)(
-          createEntry(collection.get('name'), slug, loadedEntry.file.path, {
-            raw: loadedEntry.data,
-            label: loadedEntry.file.label,
-          }),
-        ),
-      );
+    const path = selectEntryPath(collection, slug);
+    const files = collection.get('files');
+    const label = files && files.find(f => f.get('file') === path).get('label');
+    return this.implementation.getEntry(collection, slug, path).then(loadedEntry =>
+      this.entryWithFormat(collection, slug)(
+        createEntry(collection.get('name'), slug, loadedEntry.file.path, {
+          raw: loadedEntry.data,
+          label,
+        }),
+      ),
+    );
   }
 
   getMedia() {
@@ -449,7 +450,7 @@ class Backend {
     }
 
     const commitMessage = commitMessageFormatter('delete', config, { collection, slug, path });
-    return this.implementation.deleteFile(path, commitMessage);
+    return this.implementation.deleteFile(path, commitMessage, { collection, slug });
   }
 
   deleteMedia(config, path) {

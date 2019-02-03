@@ -126,6 +126,16 @@ To enable it:
       repo: owner-name/repo-name # Path to your Bitbucket repository
     ```
 
+## Test Repo Backend
+You can use the `test-repo` backend to try out Netlify CMS without connecting to a Git repo. With this backend, you can write and publish content normally, but any changes will disapear when you reload the page. This backend powers the Netlify CMS [demo site](https://cms-demo.netlify.com/).
+
+To enable this backend, add the following lines to your Netlify CMS `config.yml` file:
+
+```
+backend:
+  name: test-repo
+```
+
 ## External OAuth Clients
 
 If you would like to facilitate your own OAuth authentication rather than use Netlify's service or implicit grant, you can use one of the community-maintained projects below. Feel free to [submit a pull request](https://github.com/netlify/netlify-cms/blob/master/CONTRIBUTING.md) if you'd like to add yours!
@@ -135,6 +145,7 @@ If you would like to facilitate your own OAuth authentication rather than use Ne
 | [@vencax](https://github.com/vencax)           | GitHub, GitHub Enterprise | Node.js                 | [Repo](https://github.com/vencax/netlify-cms-github-oauth-provider)                                                                          |
 | [@igk1972](https://github.com/igk1972)         | GitHub, GitHub Enterprise | Go                      | [Repo](https://github.com/igk1972/netlify-cms-oauth-provider-go)                                                                             |
 | [@davidejones](https://github.com/davidejones) | GitHub, GitHub Enterprise | Python                  | [Repo](https://github.com/davidejones/netlify-cms-oauth-provider-python)                                                                     |
+| [@marcelkornblum](https://github.com/marcelkornblum) | GitHub, GitHub Enterprise | Google AppEngine with Python                  | [Repo](https://github.com/signal-noise/netlify-cms-oauth-provider-python-appengine)                                                                  |
 | [@marksteele](https://github.com/marksteele)   | GitHub, GitHub Enterprise | Serverless              | [Repo](https://github.com/marksteele/netlify-serverless-oauth2-backend), [Blog](https://www.control-alt-del.org/blog/serverless-blog-howto/) |
 | [@Herohtar](https://github.com/Herohtar)       | GitHub, GitHub Enterprise | Firebase Cloud Function | [Repo](https://github.com/Herohtar/netlify-cms-oauth-firebase)                                                                               |
 

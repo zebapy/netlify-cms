@@ -227,15 +227,7 @@ class Editor extends React.Component {
 
   handlePublishEntry = async (opts = {}) => {
     const { createNew = false } = opts;
-    const {
-      publishUnpublishedEntry,
-      entryDraft,
-      collection,
-      slug,
-      currentStatus,
-      loadEntry,
-      t,
-    } = this.props;
+    const { publishUnpublishedEntry, entryDraft, collection, slug, currentStatus, t } = this.props;
     if (currentStatus !== status.last()) {
       window.alert(t('editor.editor.onPublishingNotReady'));
       return;
@@ -250,8 +242,6 @@ class Editor extends React.Component {
 
     if (createNew) {
       navigateToNewEntry(collection.get('name'));
-    } else {
-      loadEntry(collection, slug);
     }
   };
 
@@ -380,7 +370,7 @@ function mapStateToProps(state, ownProps) {
   const displayUrl = config.get('display_url');
   const hasWorkflow = config.get('publish_mode') === EDITORIAL_WORKFLOW;
   const isModification = entryDraft.getIn(['entry', 'isModification']);
-  const collectionEntriesLoaded = !!entries.getIn(['entities', collectionName]);
+  const collectionEntriesLoaded = !!entries.getIn(['pages', collectionName]);
   const unpublishedEntry = selectUnpublishedEntry(state, collectionName, slug);
   const currentStatus = unpublishedEntry && unpublishedEntry.getIn(['metaData', 'status']);
   return {
