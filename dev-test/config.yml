@@ -1,7 +1,7 @@
 backend:
   name: test-repo
 
-display_url: https://example.com
+site_url: https://example.com
 
 publish_mode: editorial_workflow
 media_folder: assets/uploads
@@ -62,7 +62,7 @@ collections: # A list of collections the CMS should be able to edit
             fields:
               - { label: 'Number of posts on frontpage', name: front_limit, widget: number }
               - { label: 'Default Author', name: author, widget: string }
-              - { label: 'Default Thumbnail', name: thumb, widget: image, class: 'thumb' }
+              - { label: 'Default Thumbnail', name: thumb, widget: image, class: 'thumb', required: false }
 
       - name: 'authors'
         label: 'Authors'
@@ -91,6 +91,7 @@ collections: # A list of collections the CMS should be able to edit
         valueField: 'title'
       - { label: 'Title', name: 'title', widget: 'string' }
       - { label: 'Boolean', name: 'boolean', widget: 'boolean', default: true }
+      - { label: 'Map', name: 'map', widget: 'map' }
       - { label: 'Text', name: 'text', widget: 'text', hint: 'Plain text, not markdown' }
       - { label: 'Number', name: 'number', widget: 'number', hint: 'To infinity and beyond!' }
       - { label: 'Markdown', name: 'markdown', widget: 'markdown' }

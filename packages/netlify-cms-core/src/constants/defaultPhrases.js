@@ -39,6 +39,9 @@ export function getPhrases() {
           required: '%{fieldLabel} is required.',
           regexPattern: "%{fieldLabel} didn't match the pattern: %{pattern}.",
           processing: '%{fieldLabel} is processing.',
+          range: '%{fieldLabel} must be between %{minValue} and %{maxValue}.',
+          min: '%{fieldLabel} must be at least %{minValue}.',
+          max: '%{fieldLabel} must be %{maxValue} or less.',
         },
       },
       editor: {
@@ -78,6 +81,9 @@ export function getPhrases() {
         inReview: 'In review',
         ready: 'Ready',
         publishNow: 'Publish now',
+        deployPreviewPendingButtonLabel: 'Check for Preview',
+        deployPreviewButtonLabel: 'View Preview',
+        deployButtonLabel: 'View Live',
       },
       editorWidgets: {
         unknownControl: {
@@ -119,6 +125,7 @@ export function getPhrases() {
       },
       toast: {
         onFailToLoadEntries: 'Failed to load entry: %{details}',
+        onFailToLoadDeployPreview: 'Failed to load preview: %{details}',
         onFailToPersist: 'Failed to persist entry: %{details}',
         onFailToDelete: 'Failed to delete entry: %{details}',
         onFailToUpdateStatus: 'Failed to update status: %{details}',
